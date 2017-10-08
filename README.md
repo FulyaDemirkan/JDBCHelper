@@ -9,7 +9,7 @@ This application requires Oracle JDK8 (Windows) or OpenJDK (Linux).
 No installation is required.
 
 ## How to Run ##
-This .jar file must be added projects as a Library.
+This .jar file must be added to projects as a Library.
 
 ## Technologies Used ##
 Java
