@@ -267,7 +267,7 @@ public class JdbcHelper
     }
     
     //////////////////////////////////////////////////////////////////////////
-    // Execute static SQL update statement. It returns 0 or # of rows are 
+    // Execute dynamic SQL update statement. It returns 0 or # of rows are 
     // changed if successful, otherwise returns -1.
     //////////////////////////////////////////////////////////////////////////
     public int update(String sql, ArrayList<Object> params)
