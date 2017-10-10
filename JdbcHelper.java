@@ -224,8 +224,8 @@ public class JdbcHelper
     }
 
     //////////////////////////////////////////////////////////////////////////
-    // Execute static SQL query statement. It returns ResultSet object if 
-    // successful, otherwise returns null.
+    // Execute static SQL update statement. It returns 0 or # of rows are 
+    // changed if successful, otherwise returns -1.
     //////////////////////////////////////////////////////////////////////////
     public int update(String sql)
     {
