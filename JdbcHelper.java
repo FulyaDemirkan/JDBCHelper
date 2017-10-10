@@ -126,9 +126,52 @@ public class JdbcHelper
         {
         }
     }
-
+    
     //////////////////////////////////////////////////////////////////////////
     // Execute static SQL query statement. It returns ResultSet object if 
+    // successful, otherwise returns null.
+    //////////////////////////////////////////////////////////////////////////
+    public ResultSet query(String sql)
+    {
+        // init return value
+        resultSet = null;
+
+        // validate input
+        if (sql == null || sql.isEmpty())
+        {
+            System.err.println("[WARNING] SQL string is null or empty in "
+                    + "query()");
+            return resultSet;
+        }
+
+        try
+        {
+            // check connection before executing SQL
+            if (connection == null || connection.isClosed())
+            {
+                System.err.println("[WARNING] Connection is NOT established. "
+                        + "Make connection to DB before calling query().");
+                return resultSet;
+            }
+
+            // execute sql
+            resultSet = statement.executeQuery(sql);
+
+        } catch (SQLException e)
+        {
+            System.err.println("[SQL ERROR] " + e.getSQLState() + ": "
+                    + e.getMessage());
+
+        } catch (Exception e)
+        {
+            System.err.println("[ERROR]: " + e.getMessage());
+        }
+
+        return resultSet;
+    }
+
+    //////////////////////////////////////////////////////////////////////////
+    // Execute dynamic SQL query statement. It returns ResultSet object if 
     // successful, otherwise returns null.
     //////////////////////////////////////////////////////////////////////////
     public ResultSet query(String sql, ArrayList<Object> params)
@@ -157,7 +200,7 @@ public class JdbcHelper
                 return resultSet;
             }
 
-            // check connection before execute SQL
+            // check connection before executing SQL
             if (connection == null || connection.isClosed())
             {
                 System.err.println("[WARNING] Connection is NOT established. "
@@ -180,6 +223,49 @@ public class JdbcHelper
         return resultSet;
     }
 
+    //////////////////////////////////////////////////////////////////////////
+    // Execute static SQL query statement. It returns ResultSet object if 
+    // successful, otherwise returns null.
+    //////////////////////////////////////////////////////////////////////////
+    public int update(String sql)
+    {
+        // init return value
+        int result = -1;
+
+        // validate input
+        if (sql == null || sql.isEmpty())
+        {
+            System.err.println("[WARNING] SQL string is null or empty in "
+                    + "query()");
+            return result;
+        }
+
+        try
+        {
+            // check connection before executing SQL
+            if (connection == null || connection.isClosed())
+            {
+                System.err.println("[WARNING] Connection is NOT established. "
+                        + "Make connection to DB before calling query().");
+                return result;
+            }
+
+            // execute sql
+            result = statement.executeUpdate(sql);
+
+        } catch (SQLException e)
+        {
+            System.err.println("[SQL ERROR] " + e.getSQLState() + ": "
+                    + e.getMessage());
+
+        } catch (Exception e)
+        {
+            System.err.println("[ERROR]: " + e.getMessage());
+        }
+
+        return result;
+    }
+    
     //////////////////////////////////////////////////////////////////////////
     // Execute static SQL update statement. It returns 0 or # of rows are 
     // changed if successful, otherwise returns -1.
@@ -210,7 +296,7 @@ public class JdbcHelper
                 return result;
             }
 
-            // check connection before execute SQL
+            // check connection before executing SQL
             if (connection == null || connection.isClosed())
             {
                 System.err.println("[WARNING] Connection is NOT established. "
